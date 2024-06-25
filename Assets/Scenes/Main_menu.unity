@@ -306,7 +306,7 @@ MonoBehaviour:
   clickAudioSource: {fileID: 81280950}
   animationComponent: {fileID: 584330518}
   animationName: Fade_out
-  delay: 6
+  delay: 5
 --- !u!1 &431752087
 GameObject:
   m_ObjectHideFlags: 0

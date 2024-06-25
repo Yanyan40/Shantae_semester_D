@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;       
-    public float jumpForce = 10f;      
-    public Transform groundCheck;      
-    public LayerMask groundLayer;      
+    public float moveSpeed = 5f;
+    public float jumpForce = 10f;
+    public Transform groundCheck;
+    public LayerMask groundLayer;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
     private bool isGrounded;
@@ -24,7 +24,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleMovement()
     {
-        
         float moveInput = Input.GetAxisRaw("Horizontal");
         Vector3 moveDirection = new Vector3(moveInput, 0f, 0f) * moveSpeed;
         Vector3 newVelocity = new Vector3(moveDirection.x, rb.velocity.y, 0f);
@@ -43,9 +42,9 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
-        if (Input.GetButtonDown("Jump") && isGrounded)
+
+        if (isGrounded && Input.GetKeyDown(KeyCode.Z))
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
