@@ -46,7 +46,14 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Z))
         {
+            Debug.Log("play_Jump");
+            animator.SetBool("isJumping", true);
+            Debug.Log("is_jumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+        else
+        {
+            animator.SetBool("isJumping", false);
         }
     }
 
