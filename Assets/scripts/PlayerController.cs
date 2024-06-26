@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.5f, groundLayer);
 
         if (isGrounded && Input.GetKeyDown(KeyCode.Z))
         {
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         if (groundCheck != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
+            Gizmos.DrawWireSphere(groundCheck.position, 0.5f);
         }
     }
 }
