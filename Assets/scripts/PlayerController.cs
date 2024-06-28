@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private bool isGrounded;
     private Rigidbody rb;
+    SerializeField hitNow;
 
     void Start()
     {
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
+        HandleHit();
     }
 
     void HandleMovement()
@@ -44,7 +46,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Z))
+        if (isGrounded && Input.GetKeyDown(KeyCode.X))
         {
             Debug.Log("play_Jump");
             animator.SetBool("isJumping", true);
@@ -54,6 +56,21 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isJumping", false);
+        }
+    }
+
+    void HandleHit()
+    {
+       
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            animator.SetBool("isHitting", true);
+            
+
+        }
+        else
+        {
+            animator.SetBool("isHitting", false);
         }
     }
 
