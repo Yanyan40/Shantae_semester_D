@@ -11,6 +11,10 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Rigidbody rb;
     SerializeField hitNow;
+    public AudioClip[] audioClips;
+    public AudioSource audioSource;
+ 
+
 
     void Start()
     {
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
         HandleMovement();
         HandleJump();
         HandleHit();
+        HandleFall();
     }
 
     void HandleMovement()
@@ -48,15 +53,22 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && Input.GetKeyDown(KeyCode.X))
         {
-            Debug.Log("play_Jump");
+
             animator.SetBool("isJumping", true);
-            Debug.Log("is_jumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            audioSource.PlayOneShot(audioClips[0]);
+            
         }
         else
         {
             animator.SetBool("isJumping", false);
+
         }
+    }
+
+    void HandleFall()
+    {
+      
     }
 
     void HandleHit()
@@ -65,7 +77,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetBool("isHitting", true);
-            
+            audioSource.PlayOneShot(audioClips[1]);
 
         }
         else

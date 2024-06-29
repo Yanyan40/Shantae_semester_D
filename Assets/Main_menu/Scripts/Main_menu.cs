@@ -46,6 +46,13 @@ public class Main_menu : MonoBehaviour, IPointerEnterHandler
         StartCoroutine(LoadSceneAfterDelay("Main_menu"));
     }
 
+    public void Tutorial()
+    {
+        PlayClickSound();
+        animationComponent.Play(animationName);
+        StartCoroutine(LoadSceneAfterDelay("tutorial"));
+    }
+
     public void OnPointerEnter(PointerEventData eventData)
     {
         PlayHoverSound();
