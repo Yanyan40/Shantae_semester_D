@@ -784,7 +784,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &692736537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -943,8 +943,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 800325873}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 30.7069, y: 8.1333, z: 1.48}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 30.70691, y: 8.133301, z: 1.48}
   m_LocalScale: {x: 1.6070395, y: 1.4934212, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -984,7 +984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowSpeed: 0.15
   target: {fileID: 160709450}
-  yOffset: 0.3
+  yOffset: 1.68
 --- !u!81 &825165923
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1009,7 +1009,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 22.101252
+  m_FocalLength: 16.607843
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -1018,7 +1018,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 57
+  field of view: 71.7
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1472,7 +1472,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2125093082
 RectTransform:
   m_ObjectHideFlags: 0
