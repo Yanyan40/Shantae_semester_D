@@ -51,7 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.X))
+        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
 
             animator.SetBool("isJumping", true);
