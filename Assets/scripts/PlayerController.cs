@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     SerializeField hitNow;
     public AudioClip[] audioClips;
     public AudioSource audioSource;
- 
+
 
 
     void Start()
@@ -49,31 +49,35 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        isGrounded = Physics.CheckSphere(groundCheck.position, 0.1f, groundLayer);
+isGrounded = Physics.BoxCast(groundCheck.position, new Vector3(0.8f, 0.05f, 0.01f), Vector3.down, Quaternion.identity, 0.1f, groundLayer);
 
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+        if (isGrounded)
         {
+            bool spacePressed = Input.GetKeyDown(KeyCode.Space);
+            bool xPressed = Input.GetKeyDown(KeyCode.X);
 
-            animator.SetBool("isJumping", true);
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            audioSource.PlayOneShot(audioClips[0]);
-            
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
-
+            if (spacePressed || xPressed)
+            {
+                animator.SetBool("isJumping", true);
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                audioSource.PlayOneShot(audioClips[0]);
+            }
+            else
+            {
+                animator.SetBool("isJumping", false);
+            }
         }
     }
 
+
     void HandleFall()
     {
-      
+
     }
 
     void HandleHit()
     {
-       
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetBool("isHitting", true);
@@ -86,12 +90,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
-        if (groundCheck != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(groundCheck.position, 0.1f);
-        }
+        // Draw a wireframe cube at groundCheck.position with the same size as used in BoxCast
+        Gizmos.color = Color.red;
+        Vector3 boxSize = new Vector3(0.8f, 0.05f, 0.01f); // Adjust size according to your BoxCast
+        Gizmos.DrawWireCube(groundCheck.position + Vector3.down * 0.05f, boxSize * 2);
     }
+
 }

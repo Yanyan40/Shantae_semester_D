@@ -1,34 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealObject : MonoBehaviour
 {
     public int healAmount = 1;
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Trigger entered by: " + other.name); 
-
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Player detected"); 
-
-            HealthSystem healthSystem = other.GetComponent<HealthSystem>();
+            HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
             if (healthSystem != null)
             {
-                Debug.Log("Healing player"); 
+                Debug.Log("Healing Player");
                 healthSystem.heal(healAmount);
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
             else
             {
                 Debug.Log("HealthSystem not found on player");
             }
-        }
-        else
-        {
-            Debug.Log("Object is not the player");
         }
     }
 }

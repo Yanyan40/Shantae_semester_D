@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class damagingObject : MonoBehaviour
 {
     public int damageAmount = 1;
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
-            HealthSystem healthSystem = other.GetComponent<HealthSystem>();
+            HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
             if (healthSystem != null)
             {
                 Debug.Log("Damaging Player");
-                healthSystem.takedamage(damageAmount);
+                healthSystem.takedamage(damageAmount); 
             }
             else
             {
