@@ -10,11 +10,17 @@ public class PlayerController : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private bool isGrounded;
     private Rigidbody rb;
-    SerializeField hitNow;
+    [SerializeField] private bool hitNow;
     public AudioClip[] audioClips;
     public AudioSource audioSource;
+    public Transform[] attachedObjects; // Objects that should flip with the player
 
+    [Header("BoxCast Parameters")]
+    public Vector3 boxCastSize = new Vector3(0.5f, 0.05f, 0.01f);
+    public float boxCastDistance = 0.1f;
+    public Vector3 boxCastOffset = Vector3.zero;
 
+    [SerializeField] private bool checkingGround;
 
     void Start()
     {
@@ -23,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        checkingGround = CheckGround();
         HandleMovement();
         HandleJump();
         HandleHit();
@@ -39,7 +46,16 @@ public class PlayerController : MonoBehaviour
         if (moveInput != 0)
         {
             animator.SetBool("isRunning", true);
-            spriteRenderer.flipX = moveInput < 0;
+            bool facingRight = moveInput > 0;
+            spriteRenderer.flipX = !facingRight;
+
+            // Flip attached objects
+            foreach (Transform obj in attachedObjects)
+            {
+                Vector3 objPosition = obj.localPosition;
+                objPosition.x = Mathf.Abs(objPosition.x) * (facingRight ? 1 : -1);
+                obj.localPosition = objPosition;
+            }
         }
         else
         {
@@ -49,7 +65,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-isGrounded = Physics.BoxCast(groundCheck.position, new Vector3(0.8f, 0.05f, 0.01f), Vector3.down, Quaternion.identity, 0.1f, groundLayer);
+        isGrounded = checkingGround;
 
         if (isGrounded)
         {
@@ -69,20 +85,17 @@ isGrounded = Physics.BoxCast(groundCheck.position, new Vector3(0.8f, 0.05f, 0.01
         }
     }
 
-
     void HandleFall()
     {
-
+        // Add fall handling logic if needed
     }
 
     void HandleHit()
     {
-
         if (Input.GetKeyDown(KeyCode.Z))
         {
             animator.SetBool("isHitting", true);
             audioSource.PlayOneShot(audioClips[1]);
-
         }
         else
         {
@@ -90,12 +103,15 @@ isGrounded = Physics.BoxCast(groundCheck.position, new Vector3(0.8f, 0.05f, 0.01
         }
     }
 
+    bool CheckGround()
+    {
+        return Physics.BoxCast(groundCheck.position + boxCastOffset, boxCastSize, Vector3.down, Quaternion.identity, boxCastDistance, groundLayer);
+    }
+
     void OnDrawGizmosSelected()
     {
         // Draw a wireframe cube at groundCheck.position with the same size as used in BoxCast
         Gizmos.color = Color.red;
-        Vector3 boxSize = new Vector3(0.8f, 0.05f, 0.01f); // Adjust size according to your BoxCast
-        Gizmos.DrawWireCube(groundCheck.position + Vector3.down * 0.05f, boxSize * 2);
+        Gizmos.DrawWireCube(groundCheck.position + boxCastOffset + Vector3.down * boxCastDistance, boxCastSize * 2);
     }
-
 }

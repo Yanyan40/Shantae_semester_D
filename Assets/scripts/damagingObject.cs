@@ -6,17 +6,23 @@ public class damagingObject : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        
+        if (gameObject.CompareTag("CannonBall"))
         {
-            HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
-            if (healthSystem != null)
+            Destroy(gameObject, 0.5f); 
+
+            if (collision.gameObject.CompareTag("Player"))
             {
-                Debug.Log("Damaging Player");
-                healthSystem.takedamage(damageAmount); 
-            }
-            else
-            {
-                Debug.Log("HealthSystem not found on player");
+                HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
+                if (healthSystem != null)
+                {
+                    Debug.Log("Damaging Player");
+                    healthSystem.takedamage(damageAmount);
+                }
+                else
+                {
+                    Debug.Log("HealthSystem not found on player");
+                }
             }
         }
     }

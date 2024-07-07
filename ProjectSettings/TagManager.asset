@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - HealObject
+  - CannonBall
   layers:
   - Default
   - TransparentFX
