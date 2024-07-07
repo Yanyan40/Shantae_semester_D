@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float boxCastDistance = 0.1f;
     public Vector3 boxCastOffset = Vector3.zero;
 
+
     [SerializeField] private bool checkingGround;
 
     void Start()
@@ -71,6 +72,8 @@ public class PlayerController : MonoBehaviour
         {
             bool spacePressed = Input.GetKeyDown(KeyCode.Space);
             bool xPressed = Input.GetKeyDown(KeyCode.X);
+            animator.SetBool("isJumping", false);
+
 
             if (spacePressed || xPressed)
             {
