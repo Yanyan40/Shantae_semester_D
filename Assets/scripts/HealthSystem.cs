@@ -1,12 +1,14 @@
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 6;
     public int currentHealth = 0;
     public Animator animator;
-    private PlayerController playerController;
+    public PlayerController playerController;
+    public float hitDuration = 2f;
 
     public event Action<int, int> onHealthChanged;
 
@@ -14,27 +16,31 @@ public class HealthSystem : MonoBehaviour
     {
         currentHealth = maxHealth;
         NotifyHealthChange();
-        playerController = GetComponent<PlayerController>();
     }
 
     public void takedamage(int amount)
     {
         currentHealth -= amount;
+        animator.SetTrigger("isGettingHit");
+        StartCoroutine(HandleHit());
         if (currentHealth <= 0)
         {
             animator.SetTrigger("isDead");
             currentHealth = 0;
             Debug.Log("DEAD");
-            if (playerController != null)
-            {
-                playerController.isDead = true;
-            }
         }
         else
         {
             animator.SetBool("isDead", false);
         }
         NotifyHealthChange();
+    }
+
+    private IEnumerator HandleHit()
+    {
+        playerController.isDead = true;
+        yield return new WaitForSeconds(hitDuration);
+        playerController.isDead = false;
     }
 
     public void heal(int amount)
@@ -51,7 +57,7 @@ public class HealthSystem : MonoBehaviour
     {
         if (onHealthChanged != null)
         {
-            onHealthChanged(currentHealth, maxHealth); // Notify listeners
+            onHealthChanged(currentHealth, maxHealth);
         }
     }
 }

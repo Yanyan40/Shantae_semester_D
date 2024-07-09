@@ -15,7 +15,6 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public Transform[] attachedObjects; 
     public bool isDead = false; 
-
     public BoxCollider normalCollider; 
     public BoxCollider crouchCollider; 
     [Header("BoxCast Parameters")]
@@ -126,10 +125,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void HandleGettingHit()
-    {
-
-    }
 
     bool CheckGround()
     {
