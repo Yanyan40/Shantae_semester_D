@@ -1,18 +1,27 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ShantaeBasicAttack : MonoBehaviour
 {
-    public GameObject attackTrigger; 
+    public GameObject attackTrigger;
     public KeyCode attackKey = KeyCode.Z;
-    public float attackDuration = 0.5f; 
+    public float attackDuration = 0.5f;
 
     private Coroutine attackCoroutine;
+    private PlayerController playerController;
+
+    void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+        if (playerController == null)
+        {
+            Debug.LogError("PlayerController component not found.");
+        }
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(attackKey))
+        if (!playerController.isDead && Input.GetKeyDown(attackKey))
         {
             if (attackCoroutine != null)
             {
@@ -31,5 +40,4 @@ public class ShantaeBasicAttack : MonoBehaviour
 
         attackTrigger.SetActive(false);
     }
-
 }

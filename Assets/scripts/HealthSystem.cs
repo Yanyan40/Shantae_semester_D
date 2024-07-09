@@ -1,37 +1,52 @@
 using System;
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 6;
     public int currentHealth = 0;
     public Animator animator;
-    public PlayerController playerController;
-    public float hitDuration = 2f;
+    public PlayerController playerController; 
+    public float hitDuration = 1f; 
 
     public event Action<int, int> onHealthChanged;
+
+    private Coroutine hitCoroutine;
 
     void Start()
     {
         currentHealth = maxHealth;
         NotifyHealthChange();
+        if (playerController == null)
+        {
+            playerController = GetComponent<PlayerController>();
+            if (playerController == null)
+            {
+                playerController = FindObjectOfType<PlayerController>();
+            }
+        }
     }
 
     public void takedamage(int amount)
     {
         currentHealth -= amount;
-        animator.SetTrigger("isGettingHit");
-        StartCoroutine(HandleHit());
-        if (currentHealth <= 0)
+        if (currentHealth > 0)
         {
-            animator.SetTrigger("isDead");
-            currentHealth = 0;
-            Debug.Log("DEAD");
+            animator.SetTrigger("isGettingHit");
+            if (hitCoroutine != null)
+            {
+                StopCoroutine(hitCoroutine);
+            }
+            hitCoroutine = StartCoroutine(HandleHit());
         }
         else
         {
-            animator.SetBool("isDead", false);
+            animator.ResetTrigger("isGettingHit");
+            animator.SetTrigger("isDead");
+            currentHealth = 0;
+            playerController.isDead = true;
+            Debug.Log("DEAD");
         }
         NotifyHealthChange();
     }
@@ -40,7 +55,10 @@ public class HealthSystem : MonoBehaviour
     {
         playerController.isDead = true;
         yield return new WaitForSeconds(hitDuration);
-        playerController.isDead = false;
+        if (currentHealth > 0)
+        {
+            playerController.isDead = false;
+        }
     }
 
     public void heal(int amount)

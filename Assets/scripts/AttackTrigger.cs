@@ -7,7 +7,7 @@ public class AttackTrigger : MonoBehaviour
 
     private void OnDestroy()
     {
-        ScoreManager.Instance.AddEnemiesDestroyed(1); // Assuming each enemy destroyed adds 1 to the count
+        ScoreManager.Instance.AddEnemiesDestroyed(1); 
     }
     public HealthSystem healthSystem;
 
