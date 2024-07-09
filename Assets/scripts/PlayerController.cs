@@ -13,28 +13,35 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool hitNow;
     public AudioClip[] audioClips;
     public AudioSource audioSource;
-    public Transform[] attachedObjects; // Objects that should flip with the player
+    public Transform[] attachedObjects; 
+    public bool isDead = false; 
 
+    public BoxCollider normalCollider; 
+    public BoxCollider crouchCollider; 
     [Header("BoxCast Parameters")]
     public Vector3 boxCastSize = new Vector3(0.5f, 0.05f, 0.01f);
     public float boxCastDistance = 0.1f;
     public Vector3 boxCastOffset = Vector3.zero;
-
 
     [SerializeField] private bool checkingGround;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        crouchCollider.gameObject.SetActive(false);
     }
 
     void Update()
     {
-        checkingGround = CheckGround();
-        HandleMovement();
-        HandleJump();
-        HandleHit();
-        HandleFall();
+        if (!isDead) // Check if the player is dead
+        {
+            checkingGround = CheckGround();
+            HandleMovement();
+            HandleJump();
+            HandleHit();
+            HandleCrouch(); 
+            HandleFall();
+        }
     }
 
     void HandleMovement()
@@ -50,7 +57,6 @@ public class PlayerController : MonoBehaviour
             bool facingRight = moveInput > 0;
             spriteRenderer.flipX = !facingRight;
 
-            // Flip attached objects
             foreach (Transform obj in attachedObjects)
             {
                 Vector3 objPosition = obj.localPosition;
@@ -74,7 +80,6 @@ public class PlayerController : MonoBehaviour
             bool xPressed = Input.GetKeyDown(KeyCode.X);
             animator.SetBool("isJumping", false);
 
-
             if (spacePressed || xPressed)
             {
                 animator.SetBool("isJumping", true);
@@ -90,7 +95,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleFall()
     {
-        // Add fall handling logic if needed
     }
 
     void HandleHit()
@@ -106,6 +110,27 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void HandleCrouch()
+    {
+        if (isGrounded && Input.GetKeyDown(KeyCode.V))
+        {
+            animator.SetBool("isCrouching", true);
+            normalCollider.gameObject.SetActive(false);
+            crouchCollider.gameObject.SetActive(true);
+        }
+        else if (isGrounded && Input.GetKeyUp(KeyCode.V))
+        {
+            animator.SetBool("isCrouching", false);
+            crouchCollider.gameObject.SetActive(false);
+            normalCollider.gameObject.SetActive(true);
+        }
+    }
+
+    void HandleGettingHit()
+    {
+
+    }
+
     bool CheckGround()
     {
         return Physics.BoxCast(groundCheck.position + boxCastOffset, boxCastSize, Vector3.down, Quaternion.identity, boxCastDistance, groundLayer);
@@ -113,7 +138,6 @@ public class PlayerController : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        // Draw a wireframe cube at groundCheck.position with the same size as used in BoxCast
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(groundCheck.position + boxCastOffset + Vector3.down * boxCastDistance, boxCastSize * 2);
     }
