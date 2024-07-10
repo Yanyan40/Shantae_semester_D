@@ -102,6 +102,7 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isHitting", true);
             audioSource.PlayOneShot(audioClips[1]);
+            audioSource.PlayOneShot(audioClips[2]);
         }
         else
         {
