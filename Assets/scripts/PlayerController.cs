@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Rigidbody rb;
     private Collider playerCollider;
-    public Transform bottomDetector;
     [SerializeField] private bool hitNow;
     public AudioClip[] audioClips;
     public AudioSource audioSource;
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public float boxCastDistance = 0.1f;
     public Vector3 boxCastOffset = Vector3.zero;
 
-    [SerializeField] private bool checkingGround;
+    private bool isCrouching = false;
 
     void Start()
     {
@@ -43,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isDead) // Check if the player is dead
         {
-            checkingGround = CheckGround();
+            isGrounded = CheckGround();
             HandleMovement();
             HandleJump();
             HandleHit();
@@ -89,11 +88,11 @@ public class PlayerController : MonoBehaviour
             // Set attack trigger offset based on facing direction and crouch state
             if (facingRight)
             {
-                attackTrigger.transform.localPosition = animator.GetBool("isCrouching") ? crouchingAttackOffset : standingAttackOffset;
+                attackTrigger.transform.localPosition = isCrouching ? crouchingAttackOffset : standingAttackOffset;
             }
             else // Facing left
             {
-                attackTrigger.transform.localPosition = animator.GetBool("isCrouching") ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
+                attackTrigger.transform.localPosition = isCrouching ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
             }
 
             foreach (Transform obj in attachedObjects)
@@ -111,8 +110,6 @@ public class PlayerController : MonoBehaviour
 
     void HandleJump()
     {
-        isGrounded = checkingGround;
-
         bool spacePressed = Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.X);
 
         if (isGrounded && spacePressed)
@@ -154,14 +151,18 @@ public class PlayerController : MonoBehaviour
 
     void HandleCrouch()
     {
-        if (isGrounded && Input.GetKeyDown(KeyCode.V))
+        bool vPressed = Input.GetKey(KeyCode.V);
+
+        if (vPressed)
         {
+            isCrouching = true;
             animator.SetBool("isCrouching", true);
             normalCollider.gameObject.SetActive(false);
             crouchCollider.gameObject.SetActive(true);
         }
-        else if (isGrounded && Input.GetKeyUp(KeyCode.V))
+        else if (!vPressed && isCrouching)
         {
+            isCrouching = false;
             animator.SetBool("isCrouching", false);
             crouchCollider.gameObject.SetActive(false);
             normalCollider.gameObject.SetActive(true);
@@ -176,11 +177,11 @@ public class PlayerController : MonoBehaviour
         // Set attack trigger offset based on facing direction and crouch state
         if (facingRight)
         {
-            attackTrigger.transform.localPosition = animator.GetBool("isCrouching") ? crouchingAttackOffset : standingAttackOffset;
+            attackTrigger.transform.localPosition = isCrouching ? crouchingAttackOffset : standingAttackOffset;
         }
         else // Facing left
         {
-            attackTrigger.transform.localPosition = animator.GetBool("isCrouching") ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
+            attackTrigger.transform.localPosition = isCrouching ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
         }
     }
 
