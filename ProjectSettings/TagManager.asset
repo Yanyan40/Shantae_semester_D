@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - HealObject
   - CannonBall
+  - BottomDetector
+  - Floor
   layers:
   - Default
   - TransparentFX
