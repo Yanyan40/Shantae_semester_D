@@ -128,6 +128,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isGrounded && rb.velocity.y < 0)
         {
+            animator.SetBool("isJumping", false);
             animator.SetBool("isFalling", true);
         }
         else
