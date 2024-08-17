@@ -62,10 +62,11 @@ public class PlayerController : MonoBehaviour
     void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        float verticalInput = Input.GetAxisRaw("Vertical");
 
-        // Create the movement vector and normalize it if needed
-        Vector3 moveDirection = new Vector3(moveInput, 0f, verticalInput);
+        // Create the movement vector, focusing only on the X-axis
+        Vector3 moveDirection = new Vector3(moveInput, 0f, 0f);
+
+        // Normalize the direction if needed
         if (moveDirection.magnitude > 1f)
         {
             moveDirection.Normalize();
@@ -74,10 +75,10 @@ public class PlayerController : MonoBehaviour
         // Apply the move speed to the normalized direction
         moveDirection *= moveSpeed;
 
-        // Update the Rigidbody's velocity
-        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, moveDirection.z);
+        // Update the Rigidbody's velocity, only affecting the X and Y axes
+        rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, 0f);
 
-        if (moveInput != 0 || verticalInput != 0)
+        if (moveInput != 0)
         {
             animator.SetBool("isRunning", true);
 
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour
                 attackTrigger.transform.localPosition = isCrouching ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
             }
 
+            // Adjust the position of attached objects (like weapons, etc.) based on facing direction
             foreach (Transform obj in attachedObjects)
             {
                 Vector3 objPosition = obj.localPosition;
