@@ -155,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleCrouch()
     {
-        bool vPressed = Input.GetKey(KeyCode.V);
+        bool vPressed = Input.GetKey(KeyCode.DownArrow);
 
         if (vPressed)
         {
