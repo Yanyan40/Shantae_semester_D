@@ -31,7 +31,7 @@ public class Main_menu : MonoBehaviour, IPointerEnterHandler
     {
         PlayClickSound();
         animationComponent.Play(animationName); // Play the animation
-        StartCoroutine(LoadSceneAfterAnimation("File_select"));
+        StartCoroutine(LoadSceneAfterAnimation("MainScene"));
     }
 
     public void QuitGame()

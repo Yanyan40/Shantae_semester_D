@@ -1041,7 +1041,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "03b34f0eb57c4c09afe9a8f81529f239",
     "m_Id": 0,
-    "m_DisplayName": "_FlowSpeed",
+    "m_DisplayName": "Flow Speed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
@@ -4192,10 +4192,10 @@
     "m_Guid": {
         "m_GuidSerialized": "4608a100-1695-47b5-b037-526ae777770b"
     },
-    "m_Name": "_FlowSpeed",
+    "m_Name": "Flow Speed",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "_FlowSpeed",
-    "m_DefaultReferenceName": "_FlowSpeed",
+    "m_RefNameGeneratedByDisplayName": "Flow Speed",
+    "m_DefaultReferenceName": "_Flow_Speed",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public Transform[] attachedObjects;
     public bool isDead = false;
+    public bool isHitting = false;
     public BoxCollider normalCollider;
     public BoxCollider crouchCollider;
     public GameObject attackTrigger; // Reference to the attack trigger GameObject
@@ -128,11 +129,12 @@ public class PlayerController : MonoBehaviour
 
     void HandleFall()
     {
-        if (!isGrounded && rb.velocity.y < 0)
+        if (!isGrounded && rb.velocity.y < 0 && isHitting)
         {
             animator.SetBool("isJumping", false);
             animator.SetBool("isFalling", true);
         }
+
         else
         {
             animator.SetBool("isFalling", false);
@@ -143,12 +145,16 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            isHitting = true;
             animator.SetBool("isHitting", true);
             audioSource.PlayOneShot(audioClips[1]);
             audioSource.PlayOneShot(audioClips[2]);
+            animator.SetBool("isFalling", false);
         }
+       
         else
         {
+            isHitting = false;
             animator.SetBool("isHitting", false);
         }
     }
