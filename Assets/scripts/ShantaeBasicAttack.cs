@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ShantaeBasicAttack : MonoBehaviour
 {
-    public GameObject attackTrigger;
+    //public GameObject attackTrigger;
     public KeyCode attackKey = KeyCode.Z;
     public float attackDuration = 0.5f;
 
@@ -34,10 +34,10 @@ public class ShantaeBasicAttack : MonoBehaviour
 
     private IEnumerator ActivateAttackTrigger()
     {
-        attackTrigger.SetActive(true);
+        //attackTrigger.SetActive(true);
 
         yield return new WaitForSeconds(attackDuration);
 
-        attackTrigger.SetActive(false);
+        //attackTrigger.SetActive(false);
     }
 }
