@@ -1,0 +1,142 @@
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{0}: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{1}: checkout: moving from Main to Main
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{2}: undo: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{3}: undo: checkout: moving from 905fc80f18c527cc19758f9e09d14c4fab159c57 to Idan
+[33m1c3e80f[m[33m ([m[1;31morigin/Idan[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mIdan[m[33m)[m HEAD@{4}: undo: checkout: moving from Idan to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{5}: checkout: moving from Idan to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m1c3e80f[m[33m ([m[1;31morigin/Idan[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mIdan[m[33m)[m HEAD@{6}: checkout: moving from 905fc80f18c527cc19758f9e09d14c4fab159c57 to Idan
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{7}: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{8}: undo: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{9}: undo: checkout: moving from 905fc80f18c527cc19758f9e09d14c4fab159c57 to Main
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{10}: checkout: moving from 905fc80f18c527cc19758f9e09d14c4fab159c57 to Main
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{11}: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{12}: reset: moving to HEAD
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{13}: checkout: moving from Main to Main
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{14}: reset: moving to HEAD
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{15}: checkout: moving from 37d0b9feb4bf17edd52ac19d98124da55708f288 to Main
+[33m37d0b9f[m HEAD@{16}: commit: A lot
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{17}: checkout: moving from Main to 905fc80f18c527cc19758f9e09d14c4fab159c57
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{18}: reset: moving to HEAD
+[33m905fc80[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/Main[m[33m, [m[1;32mMain[m[33m)[m HEAD@{19}: pull --ff --force --tags origin refs/heads/Main: Fast-forward
+[33m6bfb42d[m HEAD@{20}: commit: first progress
+[33md0a9e8e[m HEAD@{21}: commit: .
+[33m7bde2c7[m HEAD@{22}: commit (merge): Merge branch 'Main' of https://github.com/Yanyan40/Shantae_semester_D into Main
+[33m9e1772c[m HEAD@{23}: reset: moving to HEAD
+[33m9e1772c[m HEAD@{24}: commit: .
+[33m35a6d79[m HEAD@{25}: pull --ff --force --tags origin refs/heads/Main: Fast-forward
+[33md4cbb4c[m HEAD@{26}: reset: moving to HEAD
+[33md4cbb4c[m HEAD@{27}: commit: ..
+[33m3ebd74c[m HEAD@{28}: commit: fixed crouch bug
+[33m6d80d77[m HEAD@{29}: commit: Idan's additions
+[33mb811092[m HEAD@{30}: discard: [edc128ffd11330c3ff97ab807d755bff80e74d4b]
+[33mb811092[m HEAD@{31}: discard: [0bdcd4d30a02017e81f6fc8954e4c4ed5d9a40ec]
+[33mb811092[m HEAD@{32}: commit: Fixed some Bugs HF
+[33mf711294[m HEAD@{33}: commit: added getting hit (idan)
+[33m46d21a7[m HEAD@{34}: commit: added death and crouch
+[33mf39b3e5[m HEAD@{35}: pull --ff --force --tags origin refs/heads/Main: Fast-forward
+[33ma4523e1[m HEAD@{36}: commit: Fixed some
+[33m9b85fd8[m HEAD@{37}: commit: Some order.
+[33m75f46c4[m HEAD@{38}: checkout: moving from 75f46c4398469e8a1db1492e6893246fb6c79865 to Main
+[33m75f46c4[m HEAD@{39}: checkout: moving from Main to 75f46c4398469e8a1db1492e6893246fb6c79865
+[33m75f46c4[m HEAD@{40}: reset: moving to 75f46c4398469e8a1db1492e6893246fb6c79865
+[33m9867788[m HEAD@{41}: checkout: moving from 8bb96bf4749026cd79af4bbf6389d65969f3ea95 to Main
+[33m8bb96bf[m HEAD@{42}: commit: Some order
+[33m75f46c4[m HEAD@{43}: checkout: moving from 27975429fd26233c50ac9f6950a5c624d58b3c8f to 75f46c4398469e8a1db1492e6893246fb6c79865
+[33m2797542[m HEAD@{44}: checkout: moving from Main to 27975429fd26233c50ac9f6950a5c624d58b3c8f
+[33m9867788[m HEAD@{45}: pull --ff --force --tags origin refs/heads/Main: Merge made by the 'ort' strategy.
+[33m75f46c4[m HEAD@{46}: commit (amend): Idan's Additions
+[33m79d064c[m HEAD@{47}: commit: Idan's Additions
+[33m2797542[m HEAD@{48}: undo: discard: [b42f79abe13270e52474b999264c4351ec112186]
+[33m2797542[m HEAD@{49}: discard: [b42f79abe13270e52474b999264c4351ec112186]
+[33m2797542[m HEAD@{50}: commit: Idan's Additions
+[33m7606d40[m HEAD@{51}: commit: Idan's progress
+[33m500606a[m HEAD@{52}: commit: Idan's Additions:
+[33m272341a[m HEAD@{53}: discard: [260dcb0328abf3f20550be0253e2760d24af3792]
+[33m272341a[m HEAD@{54}: commit: Updated
+[33me62643f[m HEAD@{55}: commit: Added Basic Attack
+[33m70f26a0[m HEAD@{56}: pull --ff --force --tags origin refs/heads/Main: Fast-forward
+[33mcb5b0d6[m HEAD@{57}: checkout: moving from Idan to Main
+[33m1c3e80f[m[33m ([m[1;31morigin/Idan[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mIdan[m[33m)[m HEAD@{58}: commit: Added scene idan
+[33m3c1b90d[m HEAD@{59}: checkout: moving from Main to Idan
+[33mcb5b0d6[m HEAD@{60}: checkout: moving from Idan to Main
+[33m3c1b90d[m HEAD@{61}: checkout: moving from Main to Idan
+[33mcb5b0d6[m HEAD@{62}: discard: [1c66fab6d1844ac5e2a0e496fea53837114fd850]
+[33mcb5b0d6[m HEAD@{63}: undo: commit: New Scene
+[33ma48f43a[m HEAD@{64}: undo: checkout: moving from Main to Idan
+[33m3c1b90d[m HEAD@{65}: undo: checkout: moving from Idan to Main
+[33ma48f43a[m HEAD@{66}: checkout: moving from Idan to Main
+[33m3c1b90d[m HEAD@{67}: checkout: moving from Main to Idan
+[33ma48f43a[m HEAD@{68}: commit: New Scene
+[33mcb5b0d6[m HEAD@{69}: checkout: moving from Idan to Main
+[33m3c1b90d[m HEAD@{70}: commit: New Scene (Idan)
+[33me14f081[m HEAD@{71}: checkout: moving from Main to Idan
+[33mcb5b0d6[m HEAD@{72}: checkout: moving from Idan to Main
+[33me14f081[m HEAD@{73}: checkout: moving from Main to Idan
+[33mcb5b0d6[m HEAD@{74}: commit: Check Is Over
+[33mdbf4fe7[m HEAD@{75}: checkout: moving from dbf4fe76543864e700391c94654b12de0b28ff30 to Main
+[33mdbf4fe7[m HEAD@{76}: checkout: moving from Main to dbf4fe76543864e700391c94654b12de0b28ff30
+[33mdbf4fe7[m HEAD@{77}: discard: [c8bafb5a1c2ba23a6e6042e51550442436cf8b4a]
+[33mdbf4fe7[m HEAD@{78}: undo: discard: [b1ca802c1f70a8bd667c018c8d0d439f162360f4]
+[33mdbf4fe7[m HEAD@{79}: discard: [b1ca802c1f70a8bd667c018c8d0d439f162360f4]
+[33mdbf4fe7[m HEAD@{80}: undo: checkout: moving from Main to Idan
+[33me14f081[m HEAD@{81}: undo: commit: Idan's Check no.2
+[33m6d998f0[m HEAD@{82}: undo: checkout: moving from Idan to Main
+[33mdbf4fe7[m HEAD@{83}: undo: checkout: moving from Main to Idan
+[33m6d998f0[m HEAD@{84}: checkout: moving from Main to Idan
+[33mdbf4fe7[m HEAD@{85}: checkout: moving from Idan to Main
+[33m6d998f0[m HEAD@{86}: commit: Idan's Check no.2
+[33me14f081[m HEAD@{87}: checkout: moving from Main to Idan
+[33mdbf4fe7[m HEAD@{88}: merge Idan: Merge made by the 'ort' strategy.
+[33m62858ba[m HEAD@{89}: checkout: moving from Idan to Main
+[33me14f081[m HEAD@{90}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{91}: checkout: moving from Idan to Main
+[33me14f081[m HEAD@{92}: commit: Idan's Check
+[33m62858ba[m HEAD@{93}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{94}: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{95}: merge Main: Fast-forward
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{96}: checkout: moving from Yaniv to Idan
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{97}: checkout: moving from Rashi to Yaniv
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{98}: checkout: moving from Main to Rashi
+[33m62858ba[m HEAD@{99}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{100}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{101}: discard: [da6d5f4bad3c959818c4be918380241d4a74d479]
+[33m62858ba[m HEAD@{102}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{103}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{104}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{105}: checkout: moving from 62858ba6f480b92eeed7c16bb62892cf10224593 to Idan
+[33m62858ba[m HEAD@{106}: delete_branch: IdanChanges origin/Idan [99ef407ddc2ca9fa15f4168653766abd4c55d6f4]
+[33m62858ba[m HEAD@{107}: checkout: moving from Idan to 62858ba6f480b92eeed7c16bb62892cf10224593
+[33m62858ba[m HEAD@{108}: discard: [b82ece11602fae4f3747a91d7499de56bf7d3aa8]
+[33m62858ba[m HEAD@{109}: undo: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{110}: undo: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{111}: undo: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{112}: undo: checkout: moving from Main to 62858ba6f480b92eeed7c16bb62892cf10224593
+[33m62858ba[m HEAD@{113}: undo: discard: [b6d253759c01e73d8468707027865768923764c1]
+[33m62858ba[m HEAD@{114}: undo: checkout: moving from 62858ba6f480b92eeed7c16bb62892cf10224593 to IdanChanges
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{115}: undo: checkout: moving from IdanChanges to Idan
+[33m62858ba[m HEAD@{116}: checkout: moving from IdanChanges to Idan
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{117}: checkout: moving from 62858ba6f480b92eeed7c16bb62892cf10224593 to IdanChanges
+[33m62858ba[m HEAD@{118}: discard: [b6d253759c01e73d8468707027865768923764c1]
+[33m62858ba[m HEAD@{119}: checkout: moving from Main to 62858ba6f480b92eeed7c16bb62892cf10224593
+[33m62858ba[m HEAD@{120}: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{121}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{122}: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{123}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{124}: checkout: moving from Idan to Main
+[33m62858ba[m HEAD@{125}: merge Main: Fast-forward
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{126}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{127}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{128}: checkout: moving from Main to Idan
+[33m62858ba[m HEAD@{129}: checkout: moving from 62858ba6f480b92eeed7c16bb62892cf10224593 to Main
+[33m62858ba[m HEAD@{130}: checkout: moving from 9966fe756c1f760c4143b4129a5957a85266ac7f to 62858ba6f480b92eeed7c16bb62892cf10224593
+[33m9966fe7[m HEAD@{131}: checkout: moving from Main to 9966fe756c1f760c4143b4129a5957a85266ac7f
+[33m62858ba[m HEAD@{132}: commit: Fixed GroundCheck (Jump)
+[33m9966fe7[m HEAD@{133}: commit: Sum
+[33m1420a52[m HEAD@{134}: reset: moving to HEAD
+[33m1420a52[m HEAD@{135}: reset: moving to HEAD
+[33m1420a52[m HEAD@{136}: pull --ff --force --tags origin refs/heads/Main: Fast-forward
+[33m9b9bc5b[m HEAD@{137}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{138}: checkout: moving from 9b9bc5bc31f864b8be0ab5bb8a30705fffc2cb35 to Idan
+[33m9b9bc5b[m HEAD@{139}: checkout: moving from Main to 9b9bc5bc31f864b8be0ab5bb8a30705fffc2cb35
+[33m9b9bc5b[m HEAD@{140}: checkout: moving from Idan to Main
+[33m99ef407[m[33m ([m[1;31morigin/Yaniv[m[33m, [m[1;31morigin/Rashi[m[33m, [m[1;32mYaniv[m[33m, [m[1;32mRashi[m[33m)[m HEAD@{141}: clone: from https://github.com/Yanyan40/Shantae_semester_D.git
