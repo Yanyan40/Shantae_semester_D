@@ -1,30 +1,18 @@
 using UnityEngine;
+
 public class damagingObject : MonoBehaviour
 {
     public int damageAmount = 1;
     public Animator animator;
+    public ParticleSystem hitParticleEffect;
+    public int EnemyValue = 1;
+
     void OnCollisionEnter(Collision collision)
     {
-        if (gameObject.CompareTag("CannonBall"))
+        if (hitParticleEffect != null)
         {
-
-            Destroy(gameObject);
+            Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
         }
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                animator = GetComponent<Animator>();
-                animator.SetTrigger("Attack");
-                HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
-                if (healthSystem != null)
-                {
-                    Debug.Log("Damaging Player");
-                    healthSystem.takedamage(damageAmount);
-                }
-                else
-                {
-                    Debug.Log("HealthSystem not found on player");
-                }
-            }
 
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -33,12 +21,22 @@ public class damagingObject : MonoBehaviour
                 animator.SetTrigger("Attack");
             }
 
-            HealthSystem enemyHealthSystem = collision.gameObject.GetComponent<HealthSystem>();
-            if (enemyHealthSystem != null)
+            HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();
+            if (healthSystem != null)
             {
-                Debug.Log("Damaging Enemy");
-                enemyHealthSystem.takedamage(damageAmount);
+                Debug.Log("Damaging Player");
+                healthSystem.takedamage(damageAmount);
             }
+            else
+            {
+                Debug.Log("HealthSystem not found on player");
+            }
+        }
+
+        // Check if the damagingObject has the tag "Enemy" before destroying
+        if (!gameObject.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
         }
     }
 }

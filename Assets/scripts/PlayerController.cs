@@ -1,7 +1,9 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerController : MonoBehaviour
 {
+    public int EnemyValue = 1;
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
     public Transform groundCheck;
@@ -11,7 +13,6 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private Rigidbody rb;
     private Collider playerCollider;
-    [SerializeField] private bool hitNow;
     public AudioClip[] audioClips;
     public AudioSource audioSource;
     public Transform[] attachedObjects;
@@ -30,6 +31,9 @@ public class PlayerController : MonoBehaviour
     public Vector3 boxCastOffset = Vector3.zero;
 
     private bool isCrouching = false;
+    private bool isCrawling = false; // New variable to track crawling state
+    public float attackRange = 1f; // Distance for Raycast attack
+    public LayerMask attackLayer; // Define which layers should be hit by the Raycast
 
     void Start()
     {
@@ -46,10 +50,9 @@ public class PlayerController : MonoBehaviour
             isGrounded = CheckGround();
             HandleMovement();
             HandleJump();
-            HandleHit();
             HandleCrouch();
             HandleFall();
-            UpdateAttackTriggerPosition();
+            HandleAttack();
         }
         else
         {
@@ -57,6 +60,17 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("isCrouching", false);
             animator.SetBool("isRunning", false);
             animator.SetBool("isFalling", false);
+            animator.SetBool("isHitting", false);
+            animator.SetBool("isCrawling", false); // Reset crawling state
+        }
+    }
+
+    void HandleAttack()
+    {
+        if (!isDead && Input.GetKeyDown(KeyCode.Z) && !isHitting) // Ensure we are not already attacking
+        {
+            // Perform attack raycast
+            EnemyRaycast();
         }
     }
 
@@ -81,7 +95,18 @@ public class PlayerController : MonoBehaviour
 
         if (moveInput != 0)
         {
-            animator.SetBool("isRunning", true);
+            if (isCrouching)
+            {
+                isCrawling = true;
+                animator.SetBool("isCrawling", true);
+                animator.SetBool("isRunning", false);
+            }
+            else
+            {
+                isCrawling = false;
+                animator.SetBool("isRunning", true);
+                animator.SetBool("isCrawling", false);
+            }
 
             // Determine facing direction
             bool facingRight = moveInput > 0;
@@ -107,7 +132,9 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
+            isCrawling = false;
             animator.SetBool("isRunning", false);
+            animator.SetBool("isCrawling", false);
         }
     }
 
@@ -129,69 +156,136 @@ public class PlayerController : MonoBehaviour
 
     void HandleFall()
     {
-        if (!isGrounded && rb.velocity.y < 0 && isHitting)
+        if (!isGrounded && rb.velocity.y < 0)
         {
-            animator.SetBool("isJumping", false);
             animator.SetBool("isFalling", true);
+            animator.SetBool("isJumping", false);
         }
-
-        else
+        else if (isGrounded)
         {
             animator.SetBool("isFalling", false);
-        }
-    }
-
-    void HandleHit()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            isHitting = true;
-            animator.SetBool("isHitting", true);
-            audioSource.PlayOneShot(audioClips[1]);
-            audioSource.PlayOneShot(audioClips[2]);
-            animator.SetBool("isFalling", false);
-        }
-       
-        else
-        {
-            isHitting = false;
-            animator.SetBool("isHitting", false);
         }
     }
 
     void HandleCrouch()
     {
-        bool vPressed = Input.GetKey(KeyCode.DownArrow);
+        bool vPressed = Input.GetKey(KeyCode.DownArrow); // Use KeyCode.DownArrow for crouching
 
         if (vPressed)
         {
-            isCrouching = true;
-            animator.SetBool("isCrouching", true);
-            normalCollider.gameObject.SetActive(false);
-            crouchCollider.gameObject.SetActive(true);
+            // Enter crouch state
+            if (!isCrouching) // Check if the player is not already crouching
+            {
+                isCrouching = true;
+                animator.SetBool("isCrouching", true);
+                normalCollider.gameObject.SetActive(false);
+                crouchCollider.gameObject.SetActive(true);
+            }
+
+            // Check for attack while crouching
+            if (Input.GetKeyDown(KeyCode.Z) && !isHitting) // Ensure we are not already attacking
+            {
+                // Perform attack raycast
+                CrouchEnemyRaycast();
+            }
         }
         else if (!vPressed && isCrouching)
         {
+            // Exit crouch state
             isCrouching = false;
+            isCrawling = false; // Reset crawling state
             animator.SetBool("isCrouching", false);
+            animator.SetBool("isCrawling", false);
             crouchCollider.gameObject.SetActive(false);
             normalCollider.gameObject.SetActive(true);
         }
     }
 
-    void UpdateAttackTriggerPosition()
+    void EnemyRaycast()
     {
-        // Determine facing direction
-        bool facingRight = !spriteRenderer.flipX;
+        // Perform Raycast attack
+        RaycastHit hit;
+        Vector3 rayDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
 
-        // Set attack trigger offset based on facing direction and crouch state
-        if (facingRight)
+        if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange, attackLayer))
         {
-            attackTrigger.transform.localPosition = isCrouching ? crouchingAttackOffset : standingAttackOffset;
+            // Check if the raycast hit an enemy
+            if (hit.collider.CompareTag("Enemy")) // Replace "Enemy" with your enemy tag
+            {
+                Debug.Log("Hit Pressed and Enemy Detected");
+                isHitting = true;
+                animator.SetTrigger("isHitting");
+                audioSource.PlayOneShot(audioClips[1]); // Play sound at start of attack
+
+                ScoreManager.Instance.AddEnemiesDestroyed(EnemyValue);
+                Destroy(hit.collider.gameObject);
+
+                // Reset isHitting after attack is processed
+                StartCoroutine(ResetHittingFlag());
+            }
+            else
+            {
+                Debug.Log("Raycast hit something, but not an enemy");
+            }
         }
-        else // Facing left
+        else
         {
-            attackTrigger.transform.localPosition = isCrouching ? leftFacingCrouchingAttackOffset : leftFacingStandingAttackOffset;
+            Debug.Log("No hit detected");
+        }
+    }
+
+    void CrouchEnemyRaycast()
+    {
+        // Perform Raycast attack while crouching
+        RaycastHit hit;
+        Vector3 rayDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
+
+        if (Physics.Raycast(transform.position, rayDirection, out hit, attackRange, attackLayer))
+        {
+            // Check if the raycast hit an enemy
+            if (hit.collider.CompareTag("Enemy")) // Replace "Enemy" with your enemy tag
+            {
+                Debug.Log("Crouch Hit Pressed and Enemy Detected");
+                isHitting = true;
+                animator.SetTrigger("CrouchHit");
+                audioSource.PlayOneShot(audioClips[1]); // Play sound at start of attack
+
+                // Destroy the enemy game object
+                Destroy(hit.collider.gameObject);
+
+                // Reset isHitting after attack is processed
+                StartCoroutine(ResetHittingFlag());
+            }
+            else
+            {
+                Debug.Log("Raycast hit something, but not an enemy");
+            }
+        }
+        else
+        {
+            Debug.Log("No hit detected");
+        }
+    }
+
+    IEnumerator ResetHittingFlag()
+    {
+        // Wait until the attack animation is finished
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        isHitting = false;
+    }
+
+    void OnDrawGizmos()
+    {
+        // Draw the raycast direction in the scene view
+        if (Application.isPlaying) // Draw during play mode
+        {
+            Gizmos.color = Color.red; // Raycast color
+            Vector3 rayDirection = spriteRenderer.flipX ? Vector3.left : Vector3.right;
+            Vector3 rayStart = transform.position;
+
+            // Draw raycast line
+            Gizmos.DrawLine(rayStart, rayStart + rayDirection * attackRange);
         }
     }
 
