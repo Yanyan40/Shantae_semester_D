@@ -169,7 +169,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleCrouch()
     {
-        bool vPressed = Input.GetKey(KeyCode.DownArrow); // Use KeyCode.DownArrow for crouching
+        bool vPressed = Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S); // Use KeyCode.DownArrow for crouching
 
         if (vPressed)
         {
@@ -189,7 +189,7 @@ public class PlayerController : MonoBehaviour
                 CrouchEnemyRaycast();
             }
         }
-        else if (!vPressed && isCrouching)
+        else if (Input.GetKeyUp(KeyCode.DownArrow) || Input.GetKeyUp(KeyCode.S) && isCrouching)
         {
             // Exit crouch state
             isCrouching = false;
