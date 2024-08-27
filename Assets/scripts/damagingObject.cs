@@ -18,7 +18,7 @@ public class damagingObject : MonoBehaviour
         {
             if (animator != null)
             {
-                animator.SetTrigger("Attack");
+                animator.SetTrigger("Throw");
             }
 
             HealthSystem healthSystem = collision.gameObject.GetComponent<HealthSystem>();

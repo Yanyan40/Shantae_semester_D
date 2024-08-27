@@ -12,6 +12,10 @@ GameObject:
   - component: {fileID: 4322967433457050522}
   - component: {fileID: 1609245964}
   - component: {fileID: 1609245961}
+  - component: {fileID: 1875747653}
+  - component: {fileID: 1839781224515695208}
+  - component: {fileID: 3263176428853180792}
+  - component: {fileID: 3613572598395609188}
   m_Layer: 6
   m_Name: Sprite_renderer
   m_TagString: Enemy
@@ -119,6 +123,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
+--- !u!114 &1875747653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322967433457050521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0aceb6b269748a3418fa310594b7d9e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  detectionRadius: 5
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  jumpForce: 5
+  jumpCheckDistance: 1.16
+  jumpCheckSize: {x: 1, y: 1}
+  attackRange: 2.2
+  boxCastSize: {x: 4.55, y: 0.96}
+  attackCooldown: 1.5
+--- !u!114 &1839781224515695208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322967433457050521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c5753db07b589f4e9356f01c5388a07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageAmount: 1
+  animator: {fileID: 1609245964}
+  hitParticleEffect: {fileID: 0}
+  EnemyValue: 1
+--- !u!65 &3263176428853180792
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322967433457050521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.917144, y: 7.07864, z: 0.2}
+  m_Center: {x: 0.42603073, y: -1.4606856, z: 0}
+--- !u!65 &3613572598395609188
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4322967433457050521}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 7.5448895, y: 7.980888, z: 0.2}
+  m_Center: {x: 0.19900987, y: -1.0095607, z: 0}
 --- !u!1 &4322967433931576876
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,9 +200,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4322967433931576879}
-  - component: {fileID: 4322967433931576878}
-  - component: {fileID: 4322967433931576865}
-  - component: {fileID: 4322967433931576864}
   m_Layer: 6
   m_Name: ENEMY 1
   m_TagString: Enemy
@@ -154,45 +223,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4322967433931576878
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4322967433931576876}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 4.165318, y: 5.914856, z: 1}
-  m_Center: {x: -0.40236348, y: -1.5805635, z: 0}
---- !u!65 &4322967433931576865
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4322967433931576876}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0866435, y: 7.3295255, z: 1}
-  m_Center: {x: 0.20795955, y: -0.67160547, z: 0}
---- !u!114 &4322967433931576864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4322967433931576876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c5753db07b589f4e9356f01c5388a07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageAmount: 1
-  animator: {fileID: 1609245964}
-  hitParticleEffect: {fileID: 0}
-  EnemyValue: 1
