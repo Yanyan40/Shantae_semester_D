@@ -110,6 +110,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c39b34757f0b874d802a4cd65587ac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fullHeart: {fileID: -1363321943, guid: 6197b84460ada7b489f41406dc773b92, type: 3}
-  halfHeart: {fileID: 1821577539, guid: 6197b84460ada7b489f41406dc773b92, type: 3}
-  emptyHeart: {fileID: -1877322253, guid: 6197b84460ada7b489f41406dc773b92, type: 3}
+  fullHeart: {fileID: -560225757, guid: 32d5d8c7fc74ba34b9fd9c1a6228f777, type: 3}
+  halfHeart: {fileID: 844273376, guid: 32d5d8c7fc74ba34b9fd9c1a6228f777, type: 3}
+  emptyHeart: {fileID: -1515826558, guid: 32d5d8c7fc74ba34b9fd9c1a6228f777, type: 3}

@@ -175,9 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c5753db07b589f4e9356f01c5388a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageAmount: 2
+  damageAmount: 1
   animator: {fileID: 0}
   hitParticleEffect: {fileID: 2433282508523890284, guid: 3ef3ae421f71c5c4e97fe12dc2fc6312, type: 3}
+  EnemyValue: 1
 --- !u!95 &5306412058994467285
 Animator:
   serializedVersion: 5
