@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class damagingObject : MonoBehaviour
 {
@@ -16,7 +16,7 @@ public class damagingObject : MonoBehaviour
             // Instantiate the particle effect at the point of collision
             if (hitParticleEffect != null)
             {
-                Instantiate(hitParticleEffect, collision.contacts[0].point, Quaternion.identity);
+                Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
             }
 
             // Destroy the damagingObject only if it is not tagged as "Enemy"
@@ -34,7 +34,7 @@ public class damagingObject : MonoBehaviour
             // Instantiate the particle effect at the point of collision
             if (hitParticleEffect != null)
             {
-                Instantiate(hitParticleEffect, collision.contacts[0].point, Quaternion.identity);
+                Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
             }
 
             if (animator != null)
@@ -48,11 +48,16 @@ public class damagingObject : MonoBehaviour
             {
                 Debug.Log("Damaging Player");
                 healthSystem.takedamage(damageAmount);
+                // Refresh the collider of the player or enemy
+                RefreshCollider(collision.gameObject);
             }
             else
             {
                 Debug.Log("HealthSystem not found on player");
             }
+
+            // Stop enemy's NavMeshAgent if the enemy is being hit
+            StopEnemyNavMeshAgent(collision.gameObject);
 
             // Destroy the damagingObject only if it is not tagged as "Enemy"
             if (!gameObject.CompareTag("Enemy"))
@@ -75,14 +80,39 @@ public class damagingObject : MonoBehaviour
             // Instantiate the particle effect at the point of collision
             if (hitParticleEffect != null)
             {
-                Instantiate(hitParticleEffect, collision.contacts[0].point, Quaternion.identity);
+                Instantiate(hitParticleEffect, transform.position, Quaternion.identity);
             }
 
             // Destroy the damagingObject only if it is not tagged as "Enemy"
             if (!gameObject.CompareTag("Enemy"))
             {
-                animator.SetTrigger("Dead");
+                if (animator != null)
+                {
+                    animator.SetTrigger("Dead");
+                }
+                Destroy(gameObject); // Ensure the object is destroyed in this case
             }
+        }
+    }
+
+    // Method to stop the enemy's NavMeshAgent
+    void StopEnemyNavMeshAgent(GameObject enemy)
+    {
+        NavMeshAgent navMeshAgent = enemy.GetComponent<NavMeshAgent>();
+        if (navMeshAgent != null)
+        {
+            navMeshAgent.isStopped = true; // Stop the agent from moving
+        }
+    }
+
+    // Method to refresh the collider
+    void RefreshCollider(GameObject obj)
+    {
+        Collider[] colliders = obj.GetComponents<Collider>();
+        foreach (var collider in colliders)
+        {
+            collider.enabled = false; // Temporarily disable the collider
+            collider.enabled = true;  // Re-enable the collider
         }
     }
 }

@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
     public int EnemyValue = 1;
     public float moveSpeed = 5f;
+    public float crawlSpeed = 2.5f; // Define a slower speed for crawling
     public float jumpForce = 10f;
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -23,10 +25,11 @@ public class PlayerController : MonoBehaviour
     public Vector3 boxCastSize = new Vector3(0.5f, 0.05f, 0.01f);
     public float boxCastDistance = 0.1f;
     public Vector3 boxCastOffset = Vector3.zero;
-
     private bool isCrouching = false;
     public float attackRange = 1f; // Distance for Raycast attack
     public LayerMask attackLayer; // Define which layers should be hit by the Raycast
+
+    private float lastMoveDirection = 1f; // Track the last move direction
 
     void Start()
     {
@@ -51,33 +54,52 @@ public class PlayerController : MonoBehaviour
         {
             SetAnimatorBools(false, false, false, false, false, false);
         }
-
     }
 
     void HandleAttack()
     {
         if (!isDead && Input.GetKeyDown(KeyCode.Z) && !isHitting) // Ensure we are not already attacking
         {
+            isHitting = true;
+
             if (isCrouching)
             {
-                CrouchEnemyRaycast();
                 animator.SetTrigger("CrouchHit");
+                audioSource.PlayOneShot(audioClips[1]);
+                CrouchEnemyRaycast();
             }
             else
             {
-                EnemyRaycast();
                 animator.SetTrigger("isHitting");
+                audioSource.PlayOneShot(audioClips[1]);
+                EnemyRaycast();
             }
+
+            // Continue the falling animation if player is falling
+            if (animator.GetBool("isFalling"))
+            {
+                animator.Play("Falling");
+            }
+
+            // Reset isHitting after attack is processed
+            StartCoroutine(ResetHittingFlag());
         }
     }
 
     void HandleMovement()
     {
         float moveInput = Input.GetAxisRaw("Horizontal");
-        Vector3 moveDirection = new Vector3(moveInput, 0f, 0f).normalized * moveSpeed;
+        float currentMoveSpeed = isCrouching ? crawlSpeed : moveSpeed; // Use crawlSpeed if crouching
+
+        Vector3 moveDirection = new Vector3(moveInput, 0f, 0f).normalized * currentMoveSpeed;
         rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, 0f);
 
-        // Check if player is falling; if so, skip running or crawling animation updates
+        // Track the last direction moved for flipping
+        if (moveInput != 0)
+        {
+            lastMoveDirection = moveInput;
+        }
+
         if (animator.GetBool("isFalling"))
         {
             return; // Exit early to avoid changing animations while falling
@@ -96,8 +118,8 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("isCrawling", false);
             }
 
-            bool facingRight = moveInput > 0;
-            spriteRenderer.flipX = !facingRight;
+            // Flip sprite based on the last move direction
+            spriteRenderer.flipX = lastMoveDirection < 0;
         }
         else
         {
@@ -109,7 +131,6 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
 
     void HandleJump()
     {
@@ -129,10 +150,13 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isFalling", true);
 
+            // Flip the sprite based on movement direction while falling
+            bool isFallingRight = rb.velocity.x > 0 || lastMoveDirection > 0;
+            spriteRenderer.flipX = !isFallingRight;
+
             // Force play the falling animation if it's not currently playing
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling"))
             {
-                Debug.Log("Forcing Falling Animation to Play");
                 animator.Play("Falling");
             }
         }
@@ -140,9 +164,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isFalling", false);
         }
-
-        // Debug information to track Animator state
-        Debug.Log("Current Animator State: " + animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
     }
 
     void HandleCrouch()
@@ -187,15 +208,43 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 Debug.Log("Hit Pressed and Enemy Detected");
-                isHitting = true;
                 animator.SetTrigger(animationTrigger);
                 audioSource.PlayOneShot(audioClips[1]); // Play sound at start of attack
 
-                ScoreManager.Instance.AddEnemiesDestroyed(EnemyValue);
-                Destroy(hit.collider.gameObject);
+                // Get the Animator component from the enemy and set "isDead" to true
+                Animator enemyAnimator = hit.collider.GetComponent<Animator>();
+                if (enemyAnimator != null)
+                {
+                    enemyAnimator.SetTrigger("isDead");
+                }
 
-                // Reset isHitting after attack is processed
-                StartCoroutine(ResetHittingFlag());
+                // Get the NavMeshAgent component from the enemy and disable it safely
+                NavMeshAgent enemyNavMeshAgent = hit.collider.GetComponent<NavMeshAgent>();
+                if (enemyNavMeshAgent != null)
+                {
+                    if (enemyNavMeshAgent.isActiveAndEnabled)
+                    {
+                        enemyNavMeshAgent.enabled = false;
+                    }
+                }
+
+                // Disable all colliders on the enemy
+                Collider[] enemyColliders = hit.collider.GetComponents<Collider>();
+                foreach (var collider in enemyColliders)
+                {
+                    collider.enabled = false;
+                }
+
+                // Apply a force to the enemy's Rigidbody to create a "kick-off" effect
+                Rigidbody enemyRigidbody = hit.collider.GetComponent<Rigidbody>();
+                if (enemyRigidbody != null)
+                {
+                    Vector3 kickOffForce = new Vector3(0f, 200f, 0f); // Apply force only on the Y axis
+                    enemyRigidbody.AddForce(kickOffForce, ForceMode.Impulse);
+                }
+
+                // Start coroutine to destroy the enemy after a delay
+                StartCoroutine(DestroyEnemyAfterDelay(hit.collider.gameObject, 2f)); // Example delay of 2 seconds
             }
             else
             {
@@ -205,6 +254,16 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.Log("No hit detected");
+        }
+    }
+
+    IEnumerator DestroyEnemyAfterDelay(GameObject enemy, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (enemy != null) // Check if the enemy is still valid before destroying
+        {
+            Destroy(enemy);
         }
     }
 

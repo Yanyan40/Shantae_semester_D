@@ -7,9 +7,9 @@ public class EnemyMovement : MonoBehaviour
     public float detectionRange = 10f;
     public float stoppingDistance = 1.5f;
     public Animator animator;
-
     private NavMeshAgent agent;
     private bool playerInTrigger = false;
+    private bool isDead = false;
 
     void Start()
     {
@@ -33,7 +33,7 @@ public class EnemyMovement : MonoBehaviour
 
     void Update()
     {
-        if (player == null || agent == null) return;
+        if (isDead || player == null || agent == null) return;
 
         if (!playerInTrigger)
         {
@@ -43,39 +43,48 @@ public class EnemyMovement : MonoBehaviour
             if (distanceToPlayer <= detectionRange)
             {
                 Vector3 targetPosition = new Vector3(player.position.x, transform.position.y, transform.position.z);
-                agent.SetDestination(targetPosition);
+                if (agent.isActiveAndEnabled) // Check if the agent is active
+                {
+                    agent.SetDestination(targetPosition);
 
-                if (distanceToPlayer <= stoppingDistance)
-                {
-                    agent.isStopped = true;
-                    SetWalkingAnimation(false);
-                }
-                else
-                {
-                    agent.isStopped = false;
-                    SetWalkingAnimation(true);
-                }
+                    if (distanceToPlayer <= stoppingDistance)
+                    {
+                        agent.isStopped = true;
+                        SetWalkingAnimation(false);
+                    }
+                    else
+                    {
+                        agent.isStopped = false;
+                        SetWalkingAnimation(true);
+                    }
 
-                // Flip the enemy's render direction towards the player
-                Vector3 directionToPlayer = (player.position - transform.position).normalized;
-                if (directionToPlayer.x > 0)
-                {
-                    transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
-                }
-                else
-                {
-                    transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    // Flip the enemy's render direction towards the player
+                    Vector3 directionToPlayer = (player.position - transform.position).normalized;
+                    if (directionToPlayer.x > 0)
+                    {
+                        transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    }
+                    else
+                    {
+                        transform.localScale = new Vector3(-Mathf.Abs(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                    }
                 }
             }
             else
             {
-                agent.isStopped = true;
+                if (agent.isActiveAndEnabled) // Check if the agent is active
+                {
+                    agent.isStopped = true;
+                }
                 SetWalkingAnimation(false);
             }
         }
         else
         {
-            agent.isStopped = true;
+            if (agent.isActiveAndEnabled) // Check if the agent is active
+            {
+                agent.isStopped = true;
+            }
             SetWalkingAnimation(false);
         }
     }
@@ -85,7 +94,10 @@ public class EnemyMovement : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInTrigger = true;
-            agent.isStopped = true;
+            if (agent.isActiveAndEnabled) // Check if the agent is active
+            {
+                agent.isStopped = true;
+            }
             SetWalkingAnimation(false);
         }
     }
@@ -104,5 +116,17 @@ public class EnemyMovement : MonoBehaviour
         {
             animator.SetBool("isWalking", isWalking);
         }
+    }
+
+    public void Die()
+    {
+        if (agent != null)
+        {
+            agent.enabled = false; // Disable the NavMeshAgent
+        }
+
+        isDead = true;
+        SetWalkingAnimation(false); // Ensure animation stops
+        // Additional logic for enemy death, such as playing a death animation or particle effects
     }
 }

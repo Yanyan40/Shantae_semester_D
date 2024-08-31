@@ -1,14 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthSystem : MonoBehaviour
 {
     public int maxHealth = 6;
     public int currentHealth = 0;
     public Animator animator;
-    public PlayerController playerController; 
-    public float hitDuration = 1f; 
+    public PlayerController playerController;
+    public float hitDuration = 1f;
 
     public event Action<int, int> onHealthChanged;
 
@@ -28,6 +29,20 @@ public class HealthSystem : MonoBehaviour
         }
     }
 
+    public void Deah()
+    {
+        if (currentHealth <= 0)
+        {
+            // Trigger death animation
+            animator.ResetTrigger("isGettingHit");
+            animator.SetTrigger("isDead");
+            // Mark player as dead
+            playerController.isDead = true;
+            // Restart the scene after a delay to allow the death animation to play
+            Invoke("RestartScene", 1f); // Adjust delay as needed
+        }
+    }
+
     public void takedamage(int amount)
     {
         currentHealth -= amount;
@@ -42,11 +57,8 @@ public class HealthSystem : MonoBehaviour
         }
         else
         {
-            animator.ResetTrigger("isGettingHit");
-            animator.SetTrigger("isDead");
+            Deah(); // Call Deah method if health <= 0
             currentHealth = 0;
-            playerController.isDead = true;
-            Debug.Log("DEAD");
         }
         NotifyHealthChange();
     }
@@ -77,5 +89,11 @@ public class HealthSystem : MonoBehaviour
         {
             onHealthChanged(currentHealth, maxHealth);
         }
+    }
+
+    void RestartScene()
+    {
+        // Reload the current scene
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
