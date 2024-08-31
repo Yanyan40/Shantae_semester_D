@@ -751,7 +751,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3725738762410098955}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &341980165
 GameObject:
@@ -2196,7 +2196,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3725738762410098955}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1073470643
 GameObject:
@@ -4031,7 +4031,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3725738762410098955}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: -0.417, z: 0}
 --- !u!1 &1605265532
 GameObject:
@@ -5649,51 +5649,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &3725738762307706772
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3725738762307706773}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.23, y: 2.36, z: 0}
-  m_LocalScale: {x: 5.668151, y: 0.57223064, z: 0.9208332}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3725738762410098955}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3725738762307706773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3725738762307706772}
-  - component: {fileID: 3725738762307706775}
-  m_Layer: 7
-  m_Name: AttackTrigger
-  m_TagString: Enemy
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &3725738762307706775
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3725738762307706773}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3725738762410098953
 GameObject:
   m_ObjectHideFlags: 0
@@ -5705,7 +5660,6 @@ GameObject:
   - component: {fileID: 3725738762410098955}
   - component: {fileID: 3725738762410098956}
   - component: {fileID: 3725738762410098959}
-  - component: {fileID: 3725738762410098958}
   - component: {fileID: 3725738762410098961}
   m_Layer: 7
   m_Name: Shantae
@@ -5730,7 +5684,6 @@ Transform:
   - {fileID: 3725738762498302024}
   - {fileID: 3725738763741052732}
   - {fileID: 3725738762061817543}
-  - {fileID: 3725738762307706772}
   - {fileID: 1198313634}
   - {fileID: 1605265523}
   - {fileID: 1073470642}
@@ -5759,6 +5712,7 @@ MonoBehaviour:
     m_Bits: 8
   animator: {fileID: 311877293}
   spriteRenderer: {fileID: 311877294}
+  isGrounded: 0
   audioClips:
   - {fileID: 8300000, guid: 6cca67db6e32bc14a81931006ec4ccbb, type: 3}
   - {fileID: 8300000, guid: 3bca2617da90c794bad16753f249b737, type: 3}
@@ -5773,32 +5727,13 @@ MonoBehaviour:
   isHitting: 0
   normalCollider: {fileID: 3725738762498302027}
   crouchCollider: {fileID: 912381393}
-  attackTrigger: {fileID: 3725738762307706773}
-  standingAttackOffset: {x: 4, y: 3.24, z: 0}
-  crouchingAttackOffset: {x: 4, y: -1.25, z: 0}
-  leftFacingStandingAttackOffset: {x: -4, y: 1, z: 0}
-  leftFacingCrouchingAttackOffset: {x: -4, y: -1.25, z: 0}
   boxCastSize: {x: 0.36, y: 0.1, z: 0.26}
   boxCastDistance: 0.1
   boxCastOffset: {x: 0.08, y: 0.1, z: 0}
-  attackRange: 1.99
+  attackRange: 2.8
   attackLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &3725738762410098958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3725738762410098953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0eb0af5e87fea414ca1985f2493186b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackKey: 122
-  attackDuration: 0.1
 --- !u!54 &3725738762410098959
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5996,7 +5931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 778144795917850057, guid: cb39de0a5a4a31140a215d2226d6ec4d, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 778144795917850057, guid: cb39de0a5a4a31140a215d2226d6ec4d, type: 3}
       propertyPath: m_LocalScale.x
@@ -6116,6 +6051,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 3725738762410098955}
+    - target: {fileID: 4926675638630825839, guid: b9859acc147c9724d88684111c7b1d3e, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9196722753631617442, guid: b9859acc147c9724d88684111c7b1d3e, type: 3}
       propertyPath: player
       value: 

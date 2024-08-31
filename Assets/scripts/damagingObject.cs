@@ -81,7 +81,7 @@ public class damagingObject : MonoBehaviour
             // Destroy the damagingObject only if it is not tagged as "Enemy"
             if (!gameObject.CompareTag("Enemy"))
             {
-                Destroy(gameObject);
+                animator.SetTrigger("Dead");
             }
         }
     }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundLayer;
     public Animator animator;
     public SpriteRenderer spriteRenderer;
-    private bool isGrounded;
+    public bool isGrounded;
     private Rigidbody rb;
     private Collider playerCollider;
     public AudioClip[] audioClips;
@@ -20,12 +20,6 @@ public class PlayerController : MonoBehaviour
     public bool isHitting = false;
     public BoxCollider normalCollider;
     public BoxCollider crouchCollider;
-    public GameObject attackTrigger; // Reference to the attack trigger GameObject
-    public Vector3 standingAttackOffset; // Offset for attack trigger while standing
-    public Vector3 crouchingAttackOffset; // Offset for attack trigger while crouching
-    public Vector3 leftFacingStandingAttackOffset; // Offset for attack trigger while standing and facing left
-    public Vector3 leftFacingCrouchingAttackOffset; // Offset for attack trigger while crouching and facing left
-    [Header("BoxCast Parameters")]
     public Vector3 boxCastSize = new Vector3(0.5f, 0.05f, 0.01f);
     public float boxCastDistance = 0.1f;
     public Vector3 boxCastOffset = Vector3.zero;
@@ -44,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!isDead) // Check if the player is dead
+        if (!isDead)
         {
             isGrounded = CheckGround();
             HandleMovement();
@@ -57,6 +51,7 @@ public class PlayerController : MonoBehaviour
         {
             SetAnimatorBools(false, false, false, false, false, false);
         }
+
     }
 
     void HandleAttack()
@@ -82,6 +77,12 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDirection = new Vector3(moveInput, 0f, 0f).normalized * moveSpeed;
         rb.velocity = new Vector3(moveDirection.x, rb.velocity.y, 0f);
 
+        // Check if player is falling; if so, skip running or crawling animation updates
+        if (animator.GetBool("isFalling"))
+        {
+            return; // Exit early to avoid changing animations while falling
+        }
+
         if (moveInput != 0)
         {
             if (isCrouching)
@@ -97,24 +98,18 @@ public class PlayerController : MonoBehaviour
 
             bool facingRight = moveInput > 0;
             spriteRenderer.flipX = !facingRight;
-
-            attackTrigger.transform.localPosition = isCrouching ?
-                (facingRight ? crouchingAttackOffset : leftFacingCrouchingAttackOffset) :
-                (facingRight ? standingAttackOffset : leftFacingStandingAttackOffset);
-
-            foreach (Transform obj in attachedObjects)
-            {
-                Vector3 objPosition = obj.localPosition;
-                objPosition.x = Mathf.Abs(objPosition.x) * (facingRight ? 1 : -1);
-                obj.localPosition = objPosition;
-            }
         }
         else
         {
-            animator.SetBool("isRunning", false);
-            animator.SetBool("isCrawling", false);
+            // Only set running/crawling to false if not falling
+            if (!animator.GetBool("isFalling"))
+            {
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isCrawling", false);
+            }
         }
     }
+
 
     void HandleJump()
     {
@@ -122,13 +117,9 @@ public class PlayerController : MonoBehaviour
 
         if (isGrounded && spacePressed)
         {
-            animator.SetBool("isJumping", true);
+            animator.SetTrigger("isJumping");
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             audioSource.PlayOneShot(audioClips[0]);
-        }
-        else
-        {
-            animator.SetBool("isJumping", false);
         }
     }
 
@@ -137,12 +128,21 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded && rb.velocity.y < 0)
         {
             animator.SetBool("isFalling", true);
-            animator.SetBool("isJumping", false);
+
+            // Force play the falling animation if it's not currently playing
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Falling"))
+            {
+                Debug.Log("Forcing Falling Animation to Play");
+                animator.Play("Falling");
+            }
         }
         else if (isGrounded)
         {
             animator.SetBool("isFalling", false);
         }
+
+        // Debug information to track Animator state
+        Debug.Log("Current Animator State: " + animator.GetCurrentAnimatorStateInfo(0).fullPathHash);
     }
 
     void HandleCrouch()
